@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 public class atmMachine {
     private final String name;
     private static int account, password;
-    private int withdraws;
     private float balance;
+    private int withdraws;
     
     private static final int TRUE = 1, FALSE = 0;
    
@@ -30,8 +30,14 @@ public class atmMachine {
             if(option == TRUE) {
                 option = isValid(account, password);
                 
+                // If account and password is valid, show the menu with options available
                 if(option == TRUE) {
-                    option = showMenu();
+                    
+                    // Show menu with options while user performs operations
+                    do {
+                        option = showMenu();
+                        chooseOption(option);
+                    } while(option != 0)  ;
                 }
             }
             
@@ -62,9 +68,48 @@ public class atmMachine {
     
     public static int showMenu() {
         return Integer.parseInt(JOptionPane.showInputDialog("\tChoose a option"
-            + "\n1- See Extract"
+            + "\n1- See extract"
             + "\n2- Withdraw"
             + "\n3- Deposit"
             + "\n0- Exit"));
+    }
+    
+    public void chooseOption(int option) {
+        
+    }
+    
+    public void extract() {      
+        JOptionPane.showMessageDialog(null, "\tEXTRACT"
+                + "\nName: " +name
+                +"\nAccount number: " +account
+                +"\nBalance: " +balance
+                +"Withdrawals made today: " +withdraws);
+    }
+    
+    public void withdraw(float value) {
+
+        if (balance >= value) {
+            balance -= value;
+            withdraws++;
+            
+            JOptionPane.showMessageDialog(null, "Amount withdraw: " +value
+                +"\nNew balance: " +balance);
+        } else {
+            JOptionPane.showMessageDialog(null, "Insufficient funds."
+                    + "\nMake a deposit!");
+
+        }
+    }
+    
+    public void deposit(float value) {
+        // Is it value zero or negative? Loop until value to be positive
+        while(value <= 0)
+            value = Float.parseFloat(JOptionPane.showInputDialog("Value invalid."
+                + "\nPut a new value."));
+        
+        balance += value; 
+        
+        JOptionPane.showMessageDialog(null, "Amount withdraw: " +value
+            +"\nNew balance: " +balance);
     }
 }
