@@ -31,8 +31,7 @@ public class atmMachine {
                 option = isValid(account, password);
                 
                 if(option == TRUE) {
-                    JOptionPane.showMessageDialog(null, "Congrats");
-                    showMenu();
+                    option = showMenu();
                 }
             }
             
@@ -61,7 +60,11 @@ public class atmMachine {
         return FALSE;
     }
     
-    public static void showMenu() {
-        
+    public static int showMenu() {
+        return Integer.parseInt(JOptionPane.showInputDialog("\tChoose a option"
+            + "\n1- See Extract"
+            + "\n2- Withdraw"
+            + "\n3- Deposit"
+            + "\n0- Exit"));
     }
 }

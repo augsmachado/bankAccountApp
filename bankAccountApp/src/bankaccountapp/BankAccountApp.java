@@ -24,6 +24,6 @@ public class BankAccountApp {
         // Criando a conta de um cliente
         atmMachine myAccount;
         myAccount = new atmMachine(name,account,password,initialBalance);
-        myAccount.start();
+        atmMachine.start();
     }
 }
