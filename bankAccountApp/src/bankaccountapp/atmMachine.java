@@ -18,7 +18,7 @@ public class atmMachine {
         withdraws = 0;
     }
     
-    public static void start(){
+    public void start(){
         int option;
       
         do {
@@ -40,12 +40,11 @@ public class atmMachine {
                     } while(option != 0)  ;
                 }
             }
-            
         } while(option != 0);
     }
     
     // Account and password validation
-    public static int isValid(int account, int password) {
+    public int isValid(int account, int password) {
         int confirmAccount, confirmPassword;
         
         for(int i = 0; i <3; i++) {
@@ -66,7 +65,7 @@ public class atmMachine {
         return FALSE;
     }
     
-    public static int showMenu() {
+    public int showMenu() {
         return Integer.parseInt(JOptionPane.showInputDialog("\tChoose a option"
             + "\n1- See extract"
             + "\n2- Withdraw"
@@ -75,15 +74,43 @@ public class atmMachine {
     }
     
     public void chooseOption(int option) {
+
+        float value;
         
+        switch(option) {
+            case 1:
+                extract();
+                break;
+            case 2:
+                if (withdraws < 3) {
+                    value = Float.parseFloat(JOptionPane.showInputDialog("Value"
+                        + " of the withdraw: "));
+                    withdraw(value);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Daily withdrawal limit"
+                    + " reached.");
+                }
+                break;
+            case 3:
+                value = Float.parseFloat(JOptionPane.showInputDialog("Value"
+                    + " of the deposit: "));
+                deposit(value);
+                break;
+            case 0:
+                JOptionPane.showMessageDialog(null, "System shutdown");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Option invalid."
+                    + "\nTry again.");
+        }
     }
     
     public void extract() {      
         JOptionPane.showMessageDialog(null, "\tEXTRACT"
-                + "\nName: " +name
-                +"\nAccount number: " +account
-                +"\nBalance: " +balance
-                +"Withdrawals made today: " +withdraws);
+            + "\nName: " +name
+            +"\nAccount number: " +account
+            +"\nBalance: " +balance
+            +"\nWithdrawals made today: " +withdraws);
     }
     
     public void withdraw(float value) {
